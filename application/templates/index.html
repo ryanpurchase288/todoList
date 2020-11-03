@@ -1,0 +1,8 @@
+<html>
+	<body>
+		<h1> To Do List </h1>
+		{% for tasks in todoList %}
+	        <p> {{ tasks.task, tasks.complete}} </p>
+		{% endfor %}
+	</body>
+</html>
