@@ -11,32 +11,32 @@ def add():
     new_task= ToDoList(task='newtask',complete=  0)
     db.session.add(new_task)
     db.session.commit()
-    return "Added a new task"
+    return redirect(url_for('index'))
 
 @app.route('/complete/<idNum>')
 def complete(idNum):
     task= ToDoList.query.get(idNum)
     task.complete=1
     db.session.commit()
-    return "Completed task for this id: "+idNum
+    return redirect(url_for('index'))
 
 @app.route('/incomplete/<idNum>')
 def incomplete(idNum):
     task= ToDoList.query.get(idNum)
     task.complete=0
     db.session.commit()
-    return "Incompleted task for this id: "+idNum
+    return redirect(url_for('index'))
 
 @app.route('/update/<idNum>/<newTask>')
 def update(idNum,newTask):
     task= ToDoList.query.get(idNum)
     task.task=newTask
     db.session.commit()
-    return "Changed task for this id: "+idNum+" to this task "+newTask
+    return redirect(url_for('index'))
 
 @app.route('/delete/<idNum>')
 def delete(idNum):
     task_1= ToDoList.query.get(idNum)
     db.session.delete(task_1)
     db.session.commit()
-    return "Deleted task "+idNum
+    return redirect(url_for('index'))
