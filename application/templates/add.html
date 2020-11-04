@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block body %}
+<form action ='' method='POST'>
+	{{ form.hidden_tag() }}
+	{{ form.task.label }} {{ form.task }} <br>
+	{% if form.task.errors %}}
+	{% for error in form.task.errors %}
+	{{error}}<br>
+	{% endfor %}
+	{% endif %}
+	{{ form.submit }}
+</form>
+{% endblock body %}
