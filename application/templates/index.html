@@ -4,7 +4,17 @@
                 {% for tasks in todoList %}
 		<p> {{ tasks.task}} <br> {% if  tasks.complete %}
 		&#9989
+		<form action='{{ url_for('incomplete', idNum=tasks.id) }}'>
+                <input type=submit value="InComplete">
+                </form>
+		{% else %}
+		<form action='{{ url_for('complete', idNum=tasks.id) }}'>
+                <input type=submit value="Complete">
+                </form>
 		{% endif %}
+           	<form action='{{ url_for('update', idNum=tasks.id) }}'>
+                <input type=submit value="Change">
+                </form>
 		</p>
 		{% endfor %}
 		{% endblock body %}

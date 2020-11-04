@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from application import app, db
 from application.models import ToDoList
 from application.forms import ToDoForm
@@ -31,12 +31,18 @@ def incomplete(idNum):
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/update/<idNum>/<newTask>')
-def update(idNum,newTask):
-    task= ToDoList.query.get(idNum)
-    task.task=newTask
-    db.session.commit()
-    return redirect(url_for('index'))
+@app.route('/update/<idNum>', methods=['POST', 'GET'])
+def update(idNum):
+    form = ToDoForm()
+    task = ToDoList.query.get(idNum)
+    if form.validate_on_submit():
+        task.task = form.task.data
+        db.session.commit()
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.task.data = task.task
+    return render_template('update.html', title='Update your todo', form=form)
+
 
 @app.route('/delete/<idNum>')
 def delete(idNum):
