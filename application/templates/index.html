@@ -5,7 +5,7 @@
 		<p> {{ tasks.task}} <br> {% if  tasks.complete %}
 		&#9989
 		<form action='{{ url_for('incomplete', idNum=tasks.id) }}'>
-                <input type=submit value="InComplete">
+                <input type=submit value="Incomplete">
                 </form>
 		{% else %}
 		<form action='{{ url_for('complete', idNum=tasks.id) }}'>
